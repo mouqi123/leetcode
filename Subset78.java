@@ -8,29 +8,27 @@ public class Subset78 {
 
     public static void subsets(List<List<Integer>> subsets, List<Integer> subset, int[] nums, int k) {
 
-        if (k == nums.length) {
+        if (k == nums.length - 1) {
+            List<Integer> l1 = new ArrayList<>(subset);
+            List<Integer> l2 = new ArrayList<>(subset);
+            l1.add(nums[k]);
+            subsets.add(l1);    subsets.add(l2);
             return;
         }
 
-        for (int i = k; i < nums.length; i++) {
-            List<Integer> l1 = new ArrayList<>(subset);
-            subsets.add(l1);
-            subset.add(nums[
-            subsets(subsets, subset
-        }
+        List<Integer> temp = new ArrayList<>(subset);
+        temp.add(nums[k]);
 
-        List<Integer> forkSet = new ArrayList<>(subset);
-        subset.add(k);
-
-        List<Integer> l1 = new ArrayList<>(subset);
-        List<Integer> l2 = new ArrayList<>(forkSet);
-        subsets.add(l1);    subsets.add(l2);
-
-        subsets(subsets, subset, nums, k+1);
+        List<Integer> temp1 = new ArrayList<>(subset);
+        subsets(subsets, temp, nums, k+1);
+        subsets(subsets, temp1, nums, k+1);
     }
 
     public static void main(String[] args) {
-        int[] a = { 1, 2, 3};
-        System.out.println(subsets(a));
+        int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        List<List<Integer>> r = subsets(a);
+        for (List<Integer> l : r) {
+            System.out.println(l);
+        }
     }
 }
