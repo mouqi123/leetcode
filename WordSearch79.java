@@ -7,22 +7,24 @@ public class WordSearch79 {
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                if (word.charAt(0) == board[i][j] && search(board, i, j, word))
+                if (exists(board, i, j, word, 0))
                     return true;
             }
         }
-        return true;
+        return false;
     }
 
-    public static search(char[][] board, int i, int j, word) {
-        int row = board.length;
-        int col = board[0].length;
+    public static boolean exists(char[][] board, int i, int j, String word, int k) {
+        if (k == word.length()) return true;
+        if (i < 0 || j < 0 || i == board.length || j == board[i].length) return false;
+        if (board[i][j] != word.charAt(k)) return false;
 
-        int k = 0;
-        int len = word.length();
-        for (char c = word.charAt(k); k < len; k++) {
-            
-        }
-
+        board[i][j] ^= 256;
+        boolean exists = exists(board, i, j+1, word, k+1)
+            || exists(board, i, j-1, word, k+1)
+            || exists(board, i+1, j, word, k+1)
+            || exists(board, i-1, j, word, k+1);
+        board[i][j] ^= 256;
+        return exists;
     }
 }
